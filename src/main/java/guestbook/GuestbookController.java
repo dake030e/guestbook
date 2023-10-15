@@ -140,7 +140,6 @@ class GuestbookController {
 	 * @param form the form submitted by the user
 	 * @param model the model that's used to render the view
 	 * @return a reference to a Thymeleaf template fragment
-	 * @see #addEntry(String, String)
 	 */
 	@HxRequest
 	@PostMapping(path = "/guestbook")

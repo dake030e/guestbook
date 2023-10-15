@@ -28,51 +28,60 @@ import org.springframework.util.Assert;
  *
  * @author Paul Henke
  * @author Oliver Drotbohm
- * @see https://en.wikipedia.org/wiki/Domain-driven_design#Building_blocks
+ * @see <a href="https://en.wikipedia.org/wiki/Domain-driven_design#Building_blocks">...</a>
  */
 @Entity
 class GuestbookEntry {
+    private @Id
+    @GeneratedValue Long id;
+    private final String name, text, email;
+    private final LocalDateTime date;
 
-	private @Id @GeneratedValue Long id;
-	private final String name, text;
-	private final LocalDateTime date;
+    /**
+     * Creates a new {@link GuestbookEntry} for the given name and text.
+     *
+     * @param name must not be {@literal null} or empty
+     * @param text must not be {@literal null} or empty
+     */
+    public GuestbookEntry(String name, String email, String text) {
 
-	/**
-	 * Creates a new {@link GuestbookEntry} for the given name and text.
-	 *
-	 * @param name must not be {@literal null} or empty
-	 * @param text must not be {@literal null} or empty
-	 */
-	public GuestbookEntry(String name, String text) {
+        Assert.hasText(name, "Name must not be null or empty!");
+        Assert.hasText(email, "Email must not be null or empty!");
+        Assert.hasText(text, "Text must not be null or empty!");
 
-		Assert.hasText(name, "Name must not be null or empty!");
-		Assert.hasText(text, "Text must not be null or empty!");
+        this.name = name;
+        this.text = text;
+        this.email = email;
+        this.date = LocalDateTime.now();
+    }
 
-		this.name = name;
-		this.text = text;
-		this.date = LocalDateTime.now();
-	}
+    @SuppressWarnings("unused")
+    private GuestbookEntry() {
+        this.name = null;
+        this.text = null;
+        this.date = null;
+        this.email = null;
+    }
 
-	@SuppressWarnings("unused")
-	private GuestbookEntry() {
-		this.name = null;
-		this.text = null;
-		this.date = null;
-	}
 
-	public String getName() {
-		return name;
-	}
 
-	public Long getId() {
-		return id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public LocalDateTime getDate() {
-		return date;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public String getEmail() {
+        return email;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public String getText() {
+        return text;
+    }
 }
